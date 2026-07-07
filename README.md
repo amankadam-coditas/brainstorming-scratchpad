@@ -13,9 +13,11 @@ tasks and replans when the world changes.
   local collision avoidance. No LLM calls, runs every tick.
 - **Task allocation** (`backend/hivemind/allocation`) — greedy auction assigning Commander tasks
   to agents by travel cost. Keeps the LLM out of per-tick assignment decisions.
-- **Commander** (`backend/hivemind/commander`) — Claude-backed mission planner. Takes a mission
-  string, returns a structured task graph (tool-use/structured output), and replans on injected
-  events (agent lost, new obstacle, comms-denied zone discovered).
+- **Commander** (`backend/hivemind/commander`) — LLM-backed mission planner using the OpenAI SDK's
+  chat-completions/tool-calling interface (provider-agnostic: works with OpenAI, Azure OpenAI, or
+  any OpenAI-compatible endpoint via `OPENAI_BASE_URL`/`OPENAI_API_KEY`). Takes a mission string,
+  returns a structured task graph via tool call, and replans on injected events (agent lost, new
+  obstacle, comms-denied zone discovered).
 - **Server** (`backend/hivemind/server.py`) — FastAPI REST endpoints (`/mission`, `/event`) plus
   a WebSocket (`/ws`) streaming live sim state and the Commander's reasoning log.
 - **Dashboard** (`frontend/`) — React + canvas swarm visualization, live reasoning log panel.
@@ -28,7 +30,11 @@ tasks and replans when the world changes.
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-export ANTHROPIC_API_KEY=sk-ant-...
+export OPENAI_API_KEY=sk-...
+# Optional: point at any OpenAI-compatible provider/proxy instead of api.openai.com
+export OPENAI_BASE_URL=https://your-provider.example.com/v1
+# Optional: model name for that provider (defaults to gpt-4o-mini)
+export LLM_MODEL=gpt-4o-mini
 python -m hivemind.main
 ```
 
