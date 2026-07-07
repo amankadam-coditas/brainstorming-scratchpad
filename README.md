@@ -30,13 +30,13 @@ tasks and replans when the world changes.
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-export OPENAI_API_KEY=sk-...
-# Optional: point at any OpenAI-compatible provider/proxy instead of api.openai.com
-export OPENAI_BASE_URL=https://your-provider.example.com/v1
-# Optional: model name for that provider (defaults to gpt-4o-mini)
-export LLM_MODEL=gpt-4o-mini
+cp .env.example .env   # fill in OPENAI_API_KEY, and optionally OPENAI_BASE_URL / LLM_MODEL
 python -m hivemind.main
 ```
+
+`.env` is loaded automatically on startup (`python-dotenv`). `OPENAI_BASE_URL` lets you point at
+any OpenAI-compatible provider/proxy instead of api.openai.com; `LLM_MODEL` sets the model name
+for that provider (defaults to `gpt-4o-mini`).
 
 Server runs at `http://localhost:8000`.
 

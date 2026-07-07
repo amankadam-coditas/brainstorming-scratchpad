@@ -3,9 +3,12 @@ from __future__ import annotations
 
 import asyncio
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
+load_dotenv()
 
 from hivemind.allocation.market import allocate
 from hivemind.commander.commander import Commander
