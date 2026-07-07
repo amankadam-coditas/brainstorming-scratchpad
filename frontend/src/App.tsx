@@ -3,8 +3,8 @@ import ReasoningLog from "./ReasoningLog";
 import SwarmCanvas from "./SwarmCanvas";
 import type { SimSnapshot } from "./types";
 
-const API_BASE = "http://localhost:8000";
-const WS_URL = "ws://localhost:8000/ws";
+const API_BASE = "https://expert-succotash-r4vxp4gp5vxq25xqq-8000.app.github.dev";
+const WS_URL = "wss://expert-succotash-r4vxp4gp5vxq25xqq-8000.app.github.dev/ws";
 
 export default function App() {
   const [snapshot, setSnapshot] = useState<SimSnapshot | null>(null);
